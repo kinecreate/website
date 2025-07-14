@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可愛い犬の世界</title>
+    <style>
+        /* 印刷時の設定 */
+        @page {
+            size: 375px 667px;
+            margin: 0;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                width: 375px;
+            }
+            .pdf-page {
+                width: 375px;
+                height: 667px;
+                page-break-after: always;
+                position: relative;
+                overflow: hidden;
+                margin: 0;
+                padding: 0;
+            }
+            .pdf-page:last-child {
+                page-break-after: auto;
+            }
+        }
+        
+        /* 画面表示時の設定 */
+        @media screen {
+            body {
+                margin: 0;
+                padding: 20px;
+                background: #e0e0e0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .pdf-page {
+                width: 375px;
+                height: 667px;
+                background: white;
+                margin-bottom: 20px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                position: relative;
+                overflow: hidden;
+            }
+        }
+        
+        /* 基本設定 */
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* コンテンツコンテナ */
+        .content-container {
+            max-height: 607px;
+            overflow: hidden;
+        }
+        
+        /* 情報カード */
+        .info-card {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 12px;
+        }
+        
+        /* 統計ボックス */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .stat-box {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 1;
+            color: #FF6B6B;
+        }
+        .stat-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            color: #666;
+        }
+        
+        /* リストアイテム */
+        .list-item {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .list-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        /* ヒーローアイコン */
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        /* グラデーション背景 */
+        .gradient-bg {
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+            color: white;
+        }
+        
+        /* 引用ボックス */
+        .quote-box {
+            border-left: 4px solid #FF6B6B;
+            background: #f8f9fa;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* 犬種カード */
+        .breed-card {
+            background: linear-gradient(135deg, #FFE066 0%, #FF6B6B 100%);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            color: white;
+            text-align: center;
+        }
+        
+        /* 特徴アイコン */
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            background: #FF6B6B;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+        
+        /* 行動リスト */
+        .behavior-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .behavior-tag {
+            background: #4ECDC4;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* 年齢段階 */
+        .age-stage {
+            background: #F7DC6F;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid #F39C12;
+        }
+    </style>
+</head>
+<body>
+    <!-- タイトルスライド -->
+    <div class="pdf-page gradient-bg">
+        <div style="padding: 30px 24px; height: 607px; display: flex; flex-direction: column; justify-content: center; text-align: center; box-sizing: border-box;">
+            <div class="hero-icon">
+                <span style="font-size: 40px;">🐕</span>
+            </div>
+            <h1 style="font-size: 28px; font-weight: 700; margin-bottom: 12px;">可愛い犬の世界</h1>
+            <p style="font-size: 16px; opacity: 0.9;">愛らしい犬たちの魅力を発見しよう</p>
+            <div style="margin-top: 30px;">
+                <span style="font-size: 24px;">🐾 🐾 🐾</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 犬の基本情報 -->
+    <div class="pdf-page">
+        <div style="padding: 30px 24px; height: 607px; box-sizing: border-box; overflow: hidden;">
+            <h1 style="font-size: 22px; font-weight: 700; margin-bottom: 20px; color: #FF6B6B;">🐕 犬の基本情報</h1>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">340</div>
+                    <div class="stat-label">犬種数</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">15年</div>
+                    <div class="stat-label">平均寿命</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">30,000</div>
+                    <div class="stat-label">年前から</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">900万</div>
+                    <div class="stat-label">日本の飼育頭数</div>
+                </div>
+            </div>
+            
+            <div class="info-card" style="margin-top: 20px;">
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #333;">🌟 犬の特徴</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #666;">
+                    犬は人間の最良の友として知られ、忠実で愛情深い性格を持っています。優れた嗅覚と聴覚を持ち、様々な役割で人間をサポートしています。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 人気犬種 -->
+    <div class="pdf-page">
+        <div style="padding: 30px 24px; height: 607px; box-sizing: border-box; overflow: hidden;">
+            <h1 style="font-size: 22px; font-weight: 700; margin-bottom: 20px; color: #FF6B6B;">🏆 人気犬種トップ3</h1>
+            
+            <div class="breed-card">
+                <div style="font-size: 24px; margin-bottom: 8px;">🥇</div>
+                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">トイプードル</h3>
+                <p style="font-size: 14px; opacity: 0.9;">賢くて毛が抜けにくい</p>
+            </div>
+            
+            <div class="breed-card">
+                <div style="font-size: 24px; margin-bottom: 8px;">🥈</div>
+                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">チワワ</h3>
+                <p style="font-size: 14px; opacity: 0.9;">世界最小の犬種</p>
+            </div>
+            
+            <div class="breed-card">
+                <div style="font-size: 24px; margin-bottom: 8px;">🥉</div>
+                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">柴犬</h3>
+                <p style="font-size: 14px; opacity: 0.9;">日本原産の忠実な犬</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 犬の行動 -->
+    <div class="pdf-page">
+        <div style="padding: 30px 24px; height: 607px; box-sizing: border-box; overflow: hidden;">
+            <h1 style="font-size: 22px; font-weight: 700; margin-bottom: 20px; color: #FF6B6B;">🐾 犬の可愛い行動</h1>
+            
+            <div class="list-item">
+                <div class="list-icon" style="background: #FFE066;">🐕</div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">首かしげ</h3>
+                    <p style="font-size: 14px; color: #666;">音を聞き分けようとする仕草</p>
+                </div>
+            </div>
+            
+            <div class="list-item">
+                <div class="list-icon" style="background: #4ECDC4;">🐾</div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">しっぽふり</h3>
+                    <p style="font-size: 14px; color: #666;">嬉しさや興奮を表現</p>
+                </div>
+            </div>
+            
+            <div class="list-item">
+                <div class="list-icon" style="background: #FF6B6B;">❤️</div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">甘え声</h3>
+                    <p style="font-size: 14px; color: #666;">飼い主に甘えたい時の鳴き声</p>
+                </div>
+            </div>
+            
+            <div class="behavior-list" style="margin-top: 20px;">
+                <div class="behavior-tag">お手</div>
+                <div class="behavior-tag">お座り</div>
+                <div class="behavior-tag">伏せ</div>
+                <div class="behavior-tag">待て</div>
+                <div class="behavior-tag">おいで</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 犬の成長段階 -->
+    <div class="pdf-page">
+        <div style="padding: 30px 24px; height: 607px; box-sizing: border-box; overflow: hidden;">
+            <h1 style="font-size: 22px; font-weight: 700; margin-bottom: 20px; color: #FF6B6B;">📈 犬の成長段階</h1>
+            
+            <div class="age-stage">
+                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 20px; margin-right: 8px;">🐶</span>
+                    <h3 style="font-size: 16px; font-weight: 600; color: #333;">子犬期（0-1歳）</h3>
+                </div>
+                <p style="font-size: 14px; color: #666;">好奇心旺盛で遊び好き</p>
+            </div>
+            
+            <div class="age-stage">
+                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 20px; margin-right: 8px;">🐕</span>
+                    <h3 style="font-size: 16px; font-weight: 600; color: #333;">成犬期（1-7歳）</h3>
+                </div>
+                <p style="font-size: 14px; color: #666;">最も活発で健康的な時期</p>
+            </div>
+            
+            <div class="age-stage">
+                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 20px; margin-right: 8px;">🐕‍🦺</span>
+                    <h3 style="font-size: 16px; font-weight: 600; color: #333;">老犬期（7歳以上）</h3>
+                </div>
+                <p style="font-size: 14px; color: #666;">穏やかで落ち着いた性格</p>
+            </div>
+            
+            <div class="quote-box" style="margin-top: 20px;">
+                <p style="font-size: 14px; font-style: italic; color: #555;">
+                    "犬の1年は人間の7年に相当すると言われています"
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 犬との暮らし -->
+    <div class="pdf-page">
+        <div style="padding: 30px 24px; height: 607px; box-sizing: border-box; overflow: hidden;">
+            <h1 style="font-size: 22px; font-weight: 700; margin-bottom: 20px; color: #FF6B6B;">🏠 犬との暮らし</h1>
+            
+            <div class="info-card">
+                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <div class="feature-icon">🍽️</div>
+                    <h3 style="font-size: 16px; font-weight: 600; color: #333;">食事管理</h3>
+                </div>
+                <p style="font-size: 14px; color: #666;">年齢と体重に応じた適切な食事量</p>
+            </div>
+            
+            <div class="info-card">
+                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <div class="feature-icon">🚶</div>
+                    <h3 style="font-size: 16px; font-weight: 600; color: #333;">散歩</h3>
+                </div>
+                <p style="font-size: 14px; color: #666;">毎日の運動で健康維持</p>
+            </div>
+            
+            <div class="info-card">
+                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <div class="feature-icon">🏥</div>
+                    <h3 style="font-size: 16px; font-weight: 600; color: #333;">健康管理</h3>
+                </div>
+                <p style="font-size: 14px; color: #666;">定期的な健康チェック</p>
+            </div>
+            
+            <div class="info-card">
+                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <div class="feature-icon">❤️</div>
+                    <h3 style="font-size: 16px; font-weight: 600; color: #333;">愛情表現</h3>
+                </div>
+                <p style="font-size: 14px; color: #666;">たくさんの愛情と時間を共有</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- エンディング -->
+    <div class="pdf-page gradient-bg">
+        <div style="padding: 30px 24px; height: 607px; display: flex; flex-direction: column; justify-content: center; text-align: center; box-sizing: border-box;">
+            <div class="hero-icon">
+                <span style="font-size: 40px;">🐕💕</span>
+            </div>
+            <h1 style="font-size: 28px; font-weight: 700; margin-bottom: 12px;">犬は家族の一員</h1>
+            <p style="font-size: 16px; opacity: 0.9; margin-bottom: 20px;">
+                愛らしい犬たちは私たちの生活に<br>
+                無条件の愛と喜びをもたらします
+            </p>
+            <div style="margin-top: 30px;">
+                <span style="font-size: 24px;">🐾 ❤️ 🐾</span>
+            </div>
+            <p style="font-size: 14px; opacity: 0.8; margin-top: 20px;">
+                ありがとうございました
+            </p>
+        </div>
+    </div>
+</body>
+</html>
